@@ -1,1 +1,2 @@
 import "./cargarCategoria";
+import "./eventCategory";
