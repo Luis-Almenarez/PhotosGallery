@@ -1,6 +1,4 @@
-'use strict';
-
-var data = {
+export default {
   fotos: {
     america: [
       {
@@ -430,42 +428,3 @@ var data = {
     ],
   },
 };
-
-const { fotos } = data;
-
-var dataCategorias = {
-  categorias: [
-    { id: "america", nombre: "America", numeroFotos: fotos["america"].length, imagenPortada: "./img/america.jpg" },
-    { id: "europa", nombre: "Europa", numeroFotos: fotos["europa"].length, imagenPortada: "./img/europa.jpg" },
-    { id: "africa", nombre: "África", numeroFotos: fotos["africa"].length, imagenPortada: "./img/africa.jpg" },
-    { id: "asia", nombre: "Asia", numeroFotos: fotos["asia"].length, imagenPortada: "./img/asia.jpg" },
-    { id: "oceania", nombre: "Oceania", numeroFotos: fotos["oceania"].length, imagenPortada: "./img/oceania.jpg" },
-    {
-      id: "antartida",
-      nombre: "Antártida",
-      numeroFotos: fotos["antartida"].length,
-      imagenPortada: "./img/antartida.jpg",
-    },
-  ],
-};
-
-const { categorias } = dataCategorias;
-const containerCategory = document.getElementById("categorias");
-
-categorias.forEach((categoria) => {
-  const newCategory = document.createElement("a");
-  const template = `  
-        <img class="categoria__img" src="${categoria.imagenPortada}" alt="Imagen portada sección ${categoria.nombre}" />
-        <div class="categoria__datos">
-        <p class="categoria__nombre">${categoria.nombre}</p>
-        <p class="categoria__numero-fotos">${categoria.numeroFotos} Fotos</p>
-        </div>
-    `;
-
-  newCategory.innerHTML = template;
-  newCategory.classList.add("categoria");
-  newCategory.href = "#";
-  newCategory.dataset.categoria = categoria.id;
-
-  containerCategory.append(newCategory);
-});
