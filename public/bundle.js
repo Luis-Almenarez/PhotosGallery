@@ -470,6 +470,14 @@ categorias.forEach((categoria) => {
   containerCategory$1.append(newCategory);
 });
 
+const galery$3 = document.getElementById("galeria");
+const chargeImage = (id, nombre, ruta, descripcion) => {
+  galery$3.querySelector(".galeria__imagen").src = ruta;
+  galery$3.querySelector(".galeria__imagen").dataset.idImagen = id;
+  galery$3.querySelector(".galeria__titulo").innerText = nombre;
+  galery$3.querySelector(".galeria__descripcion-imagen-activa").innerText = descripcion;
+};
+
 const containerCategory = document.getElementById("categorias");
 const galery$2 = document.getElementById("galeria");
 
@@ -482,6 +490,9 @@ containerCategory.addEventListener("click", (e) => {
     const categoryActive = e.target.closest("a").dataset.categoria;
     const pic = dataPic.fotos[categoryActive];
     const carousel = galery$2.querySelector(".galeria__carousel-slides");
+
+    const { id, nombre, ruta, descripcion } = pic[0];
+    chargeImage(id, nombre, ruta, descripcion);
 
     carousel.innerHTML = "";
 

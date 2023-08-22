@@ -1,4 +1,5 @@
 import dataPic from "./data/fotos";
+import { chargeImage } from "./galery/chargeImage";
 const containerCategory = document.getElementById("categorias");
 const galery = document.getElementById("galeria");
 
@@ -11,6 +12,9 @@ containerCategory.addEventListener("click", (e) => {
     const categoryActive = e.target.closest("a").dataset.categoria;
     const pic = dataPic.fotos[categoryActive];
     const carousel = galery.querySelector(".galeria__carousel-slides");
+
+    const { id, nombre, ruta, descripcion } = pic[0];
+    chargeImage(id, nombre, ruta, descripcion);
 
     carousel.innerHTML = "";
 
