@@ -471,16 +471,19 @@ categorias.forEach((categoria) => {
 });
 
 const containerCategory = document.getElementById("categorias");
-const galery = document.getElementById("galeria");
+const galery$2 = document.getElementById("galeria");
 
 containerCategory.addEventListener("click", (e) => {
   e.preventDefault();
   if (e.target.closest("a")) {
-    galery.classList.add("galeria--active");
+    galery$2.classList.add("galeria--active");
     document.body.style.overflow = "hidden";
 
-    const categoryActive = e.target.dataset.categoria;
+    const categoryActive = e.target.closest("a").dataset.categoria;
     const pic = dataPic.fotos[categoryActive];
+    const carousel = galery$2.querySelector(".galeria__carousel-slides");
+
+    carousel.innerHTML = "";
 
     pic.forEach((pic) => {
       const slide = `
@@ -488,9 +491,24 @@ containerCategory.addEventListener("click", (e) => {
                 <img class="galeria__carousel-image" src="${pic.ruta}" alt="Imagen paisaje ${pic.nombre}" />
             </a>
         `;
-      galery.querySelector(".galeria__carousel-slides").innerHTML += slide;
+      galery$2.querySelector(".galeria__carousel-slides").innerHTML += slide;
     });
 
-    galery.querySelector(".galeria__carousel-slide").classList.add("galeria__carousel-slide--active");
+    galery$2.querySelector(".galeria__carousel-slide").classList.add("galeria__carousel-slide--active");
   }
+});
+
+const galery$1 = document.getElementById("galeria");
+const closeGalery = () => {
+  galery$1.classList.remove("galeria--active");
+};
+
+const galery = document.getElementById("galeria");
+galery.addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+
+  if (btn?.dataset?.accion === "cerrar-galeria") {
+    closeGalery();
+  }
+  document.body.style.overflow = "";
 });

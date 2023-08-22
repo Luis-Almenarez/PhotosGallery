@@ -8,8 +8,11 @@ containerCategory.addEventListener("click", (e) => {
     galery.classList.add("galeria--active");
     document.body.style.overflow = "hidden";
 
-    const categoryActive = e.target.dataset.categoria;
+    const categoryActive = e.target.closest("a").dataset.categoria;
     const pic = dataPic.fotos[categoryActive];
+    const carousel = galery.querySelector(".galeria__carousel-slides");
+
+    carousel.innerHTML = "";
 
     pic.forEach((pic) => {
       const slide = `
