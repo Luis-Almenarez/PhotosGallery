@@ -476,6 +476,22 @@ const chargeImage = (id, nombre, ruta, descripcion) => {
   galery$3.querySelector(".galeria__imagen").dataset.idImagen = id;
   galery$3.querySelector(".galeria__titulo").innerText = nombre;
   galery$3.querySelector(".galeria__descripcion-imagen-activa").innerText = descripcion;
+
+  const actuallyCategory = galery$3.dataset.categoria;
+  const fotos = data.fotos[actuallyCategory];
+
+  let indexImagenActual;
+  fotos.forEach((pic, index) => {
+    if (pic.id === id) {
+      indexImagenActual = index;
+    }
+  });
+
+  if (galery$3.querySelectorAll(".galeria__carousel-slide").length > 0) {
+    galery$3.querySelector(".galeria__carousel-slide--active").classList.remove("galeria__carousel-slide--active");
+
+    galery$3.querySelectorAll(".galeria__carousel-slide")[indexImagenActual].classList.add("galeria__carousel-slide--active");
+  }
 };
 
 const containerCategory = document.getElementById("categorias");
