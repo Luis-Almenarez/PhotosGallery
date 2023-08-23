@@ -1,6 +1,6 @@
 'use strict';
 
-var dataPic = {
+var data = {
   fotos: {
     america: [
       {
@@ -431,7 +431,7 @@ var dataPic = {
   },
 };
 
-const { fotos } = dataPic;
+const { fotos } = data;
 
 var dataCategorias = {
   categorias: [
@@ -488,7 +488,8 @@ containerCategory.addEventListener("click", (e) => {
     document.body.style.overflow = "hidden";
 
     const categoryActive = e.target.closest("a").dataset.categoria;
-    const pic = dataPic.fotos[categoryActive];
+    galery$2.dataset.categoria = categoryActive;
+    const pic = data.fotos[categoryActive];
     const carousel = galery$2.querySelector(".galeria__carousel-slides");
 
     const { id, nombre, ruta, descripcion } = pic[0];
@@ -499,7 +500,7 @@ containerCategory.addEventListener("click", (e) => {
     pic.forEach((pic) => {
       const slide = `
             <a href="#" class="galeria__carousel-slide">
-                <img class="galeria__carousel-image" src="${pic.ruta}" alt="Imagen paisaje ${pic.nombre}" />
+                <img class="galeria__carousel-image" src="${pic.ruta}" data-id='${pic.id}' alt="Imagen paisaje ${pic.nombre}" />
             </a>
         `;
       galery$2.querySelector(".galeria__carousel-slides").innerHTML += slide;
@@ -514,6 +515,23 @@ const closeGalery = () => {
   galery$1.classList.remove("galeria--active");
 };
 
+const slideClick = (e) => {
+  let ruta, nombre, descripcion;
+  const id = parseInt(e.target.dataset.id);
+  const galeria = document.getElementById("galeria");
+  const categoryActive = galeria.dataset.categoria;
+
+  data.fotos[categoryActive].forEach((pic) => {
+    if (pic.id === id) {
+      ruta = pic.ruta;
+      nombre = pic.nombre;
+      descripcion = pic.descripcion;
+    }
+  });
+
+  chargeImage(id, nombre, ruta, descripcion);
+};
+
 const galery = document.getElementById("galeria");
 galery.addEventListener("click", (e) => {
   const btn = e.target.closest("button");
@@ -522,4 +540,10 @@ galery.addEventListener("click", (e) => {
     closeGalery();
   }
   document.body.style.overflow = "";
+
+  // - CAROUSEL SLIDE CLICK -
+
+  if (e.target.dataset.id) {
+    slideClick(e);
+  }
 });

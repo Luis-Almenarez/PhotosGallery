@@ -10,6 +10,7 @@ containerCategory.addEventListener("click", (e) => {
     document.body.style.overflow = "hidden";
 
     const categoryActive = e.target.closest("a").dataset.categoria;
+    galery.dataset.categoria = categoryActive;
     const pic = dataPic.fotos[categoryActive];
     const carousel = galery.querySelector(".galeria__carousel-slides");
 
@@ -21,7 +22,7 @@ containerCategory.addEventListener("click", (e) => {
     pic.forEach((pic) => {
       const slide = `
             <a href="#" class="galeria__carousel-slide">
-                <img class="galeria__carousel-image" src="${pic.ruta}" alt="Imagen paisaje ${pic.nombre}" />
+                <img class="galeria__carousel-image" src="${pic.ruta}" data-id='${pic.id}' alt="Imagen paisaje ${pic.nombre}" />
             </a>
         `;
       galery.querySelector(".galeria__carousel-slides").innerHTML += slide;

@@ -1,4 +1,5 @@
 import closeGalery from "./closeGalery";
+import slideClick from "./slideClick";
 
 const galery = document.getElementById("galeria");
 galery.addEventListener("click", (e) => {
@@ -8,4 +9,10 @@ galery.addEventListener("click", (e) => {
     closeGalery();
   }
   document.body.style.overflow = "";
+
+  // - CAROUSEL SLIDE CLICK -
+
+  if (e.target.dataset.id) {
+    slideClick(e);
+  }
 });
