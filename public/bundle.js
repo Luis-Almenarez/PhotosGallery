@@ -494,6 +494,32 @@ const chargeImage = (id, nombre, ruta, descripcion) => {
   }
 };
 
+const cargarAnteriorSiguiente = (direccion) => {
+  const categoriaActual = galery$3.dataset.categoria;
+  const fotos = data.fotos[categoriaActual];
+  const idImagenActual = parseInt(galery$3.querySelector(".galeria__imagen").dataset.idImagen);
+
+  let indexImagenActual;
+
+  fotos.forEach((foto, index) => {
+    if (foto.id === idImagenActual) {
+      indexImagenActual = index;
+    }
+  });
+
+  if (direccion === "siguiente") {
+    if (fotos[indexImagenActual + 1]) {
+      const { id, nombre, ruta, descripcion } = fotos[indexImagenActual + 1];
+      chargeImage(id, nombre, ruta, descripcion);
+    }
+  } else if (direccion === "anterior") {
+    if (fotos[indexImagenActual - 1]) {
+      const { id, nombre, ruta, descripcion } = fotos[indexImagenActual - 1];
+      chargeImage(id, nombre, ruta, descripcion);
+    }
+  }
+};
+
 const containerCategory = document.getElementById("categorias");
 const galery$2 = document.getElementById("galeria");
 
@@ -561,5 +587,16 @@ galery.addEventListener("click", (e) => {
 
   if (e.target.dataset.id) {
     slideClick(e);
+  }
+
+  // - Siguiente Imagen
+
+  if (btn?.dataset?.accion === "siguiente-imagen") {
+    cargarAnteriorSiguiente("siguiente");
+  }
+
+  // - Imange anterior
+  if (btn?.dataset?.accion === "anterior-imagen") {
+    cargarAnteriorSiguiente("anterior");
   }
 });

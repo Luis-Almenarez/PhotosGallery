@@ -24,4 +24,30 @@ const chargeImage = (id, nombre, ruta, descripcion) => {
   }
 };
 
-export { chargeImage };
+const cargarAnteriorSiguiente = (direccion) => {
+  const categoriaActual = galery.dataset.categoria;
+  const fotos = data.fotos[categoriaActual];
+  const idImagenActual = parseInt(galery.querySelector(".galeria__imagen").dataset.idImagen);
+
+  let indexImagenActual;
+
+  fotos.forEach((foto, index) => {
+    if (foto.id === idImagenActual) {
+      indexImagenActual = index;
+    }
+  });
+
+  if (direccion === "siguiente") {
+    if (fotos[indexImagenActual + 1]) {
+      const { id, nombre, ruta, descripcion } = fotos[indexImagenActual + 1];
+      chargeImage(id, nombre, ruta, descripcion);
+    }
+  } else if (direccion === "anterior") {
+    if (fotos[indexImagenActual - 1]) {
+      const { id, nombre, ruta, descripcion } = fotos[indexImagenActual - 1];
+      chargeImage(id, nombre, ruta, descripcion);
+    }
+  }
+};
+
+export { chargeImage, cargarAnteriorSiguiente };
