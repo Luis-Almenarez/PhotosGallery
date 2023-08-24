@@ -1,4 +1,4 @@
-#Gallery Image.
+# Gallery Image.
 
 Esta es una galería de imágenes realizada con HTML, SCSS y en un gran mayororía con JavaScript, en cuanto a la maquetación con HTML y estilado con SCSS fue algo sencillo, un diseño limpio y bien logrado.
 
