@@ -470,14 +470,14 @@ categorias.forEach((categoria) => {
   containerCategory$1.append(newCategory);
 });
 
-const galery$3 = document.getElementById("galeria");
+const galery$4 = document.getElementById("galeria");
 const chargeImage = (id, nombre, ruta, descripcion) => {
-  galery$3.querySelector(".galeria__imagen").src = ruta;
-  galery$3.querySelector(".galeria__imagen").dataset.idImagen = id;
-  galery$3.querySelector(".galeria__titulo").innerText = nombre;
-  galery$3.querySelector(".galeria__descripcion-imagen-activa").innerText = descripcion;
+  galery$4.querySelector(".galeria__imagen").src = ruta;
+  galery$4.querySelector(".galeria__imagen").dataset.idImagen = id;
+  galery$4.querySelector(".galeria__titulo").innerText = nombre;
+  galery$4.querySelector(".galeria__descripcion-imagen-activa").innerText = descripcion;
 
-  const actuallyCategory = galery$3.dataset.categoria;
+  const actuallyCategory = galery$4.dataset.categoria;
   const fotos = data.fotos[actuallyCategory];
 
   let indexImagenActual;
@@ -487,17 +487,17 @@ const chargeImage = (id, nombre, ruta, descripcion) => {
     }
   });
 
-  if (galery$3.querySelectorAll(".galeria__carousel-slide").length > 0) {
-    galery$3.querySelector(".galeria__carousel-slide--active").classList.remove("galeria__carousel-slide--active");
+  if (galery$4.querySelectorAll(".galeria__carousel-slide").length > 0) {
+    galery$4.querySelector(".galeria__carousel-slide--active").classList.remove("galeria__carousel-slide--active");
 
-    galery$3.querySelectorAll(".galeria__carousel-slide")[indexImagenActual].classList.add("galeria__carousel-slide--active");
+    galery$4.querySelectorAll(".galeria__carousel-slide")[indexImagenActual].classList.add("galeria__carousel-slide--active");
   }
 };
 
 const cargarAnteriorSiguiente = (direccion) => {
-  const categoriaActual = galery$3.dataset.categoria;
+  const categoriaActual = galery$4.dataset.categoria;
   const fotos = data.fotos[categoriaActual];
-  const idImagenActual = parseInt(galery$3.querySelector(".galeria__imagen").dataset.idImagen);
+  const idImagenActual = parseInt(galery$4.querySelector(".galeria__imagen").dataset.idImagen);
 
   let indexImagenActual;
 
@@ -521,18 +521,18 @@ const cargarAnteriorSiguiente = (direccion) => {
 };
 
 const containerCategory = document.getElementById("categorias");
-const galery$2 = document.getElementById("galeria");
+const galery$3 = document.getElementById("galeria");
 
 containerCategory.addEventListener("click", (e) => {
   e.preventDefault();
   if (e.target.closest("a")) {
-    galery$2.classList.add("galeria--active");
+    galery$3.classList.add("galeria--active");
     document.body.style.overflow = "hidden";
 
     const categoryActive = e.target.closest("a").dataset.categoria;
-    galery$2.dataset.categoria = categoryActive;
+    galery$3.dataset.categoria = categoryActive;
     const pic = data.fotos[categoryActive];
-    const carousel = galery$2.querySelector(".galeria__carousel-slides");
+    const carousel = galery$3.querySelector(".galeria__carousel-slides");
 
     const { id, nombre, ruta, descripcion } = pic[0];
     chargeImage(id, nombre, ruta, descripcion);
@@ -545,16 +545,16 @@ containerCategory.addEventListener("click", (e) => {
                 <img class="galeria__carousel-image" src="${pic.ruta}" data-id='${pic.id}' alt="Imagen paisaje ${pic.nombre}" />
             </a>
         `;
-      galery$2.querySelector(".galeria__carousel-slides").innerHTML += slide;
+      galery$3.querySelector(".galeria__carousel-slides").innerHTML += slide;
     });
 
-    galery$2.querySelector(".galeria__carousel-slide").classList.add("galeria__carousel-slide--active");
+    galery$3.querySelector(".galeria__carousel-slide").classList.add("galeria__carousel-slide--active");
   }
 });
 
-const galery$1 = document.getElementById("galeria");
+const galery$2 = document.getElementById("galeria");
 const closeGalery = () => {
-  galery$1.classList.remove("galeria--active");
+  galery$2.classList.remove("galeria--active");
 };
 
 const slideClick = (e) => {
@@ -572,6 +572,54 @@ const slideClick = (e) => {
   });
 
   chargeImage(id, nombre, ruta, descripcion);
+};
+
+const galery$1 = document.getElementById("galeria");
+const carousel = (direccion) => {
+  const options = {
+    root: document.querySelector(".galeria__carousel"),
+    rootMargin: "0px",
+    threshold: 0.9,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    const slidesVisible = entries.filter((entry) => {
+      if (entry.isIntersecting === true) {
+        return entry;
+      }
+    });
+
+    if (direccion === "atras") {
+      const firtSlideVisible = slidesVisible[0];
+      const indexfirtSlideVisible = entries.indexOf(firtSlideVisible);
+
+      if (indexfirtSlideVisible >= 1) {
+        entries[indexfirtSlideVisible - 1].target.scrollIntoView({
+          behavior: "smooth",
+          inline: "start",
+        });
+      }
+    } else if (direccion === "adelante") {
+      const lastSlideVisible = slidesVisible[slidesVisible.length - 1];
+      const indexLastSlideVisible = entries.indexOf(lastSlideVisible);
+      if (entries.length - 1 > indexLastSlideVisible) {
+        entries[indexLastSlideVisible + 1].target.scrollIntoView({
+          behavior: "smooth",
+          inline: "start",
+        });
+      }
+    }
+
+    const slides = galery$1.querySelectorAll(".galeria__carousel-slide");
+    slides.forEach((slide) => {
+      observer.unobserve(slide);
+    });
+  }, options);
+
+  const slides = galery$1.querySelectorAll(".galeria__carousel-slide");
+  slides.forEach((slide) => {
+    observer.observe(slide);
+  });
 };
 
 const galery = document.getElementById("galeria");
@@ -598,5 +646,15 @@ galery.addEventListener("click", (e) => {
   // - Imange anterior
   if (btn?.dataset?.accion === "anterior-imagen") {
     cargarAnteriorSiguiente("anterior");
+  }
+
+  // - Carousel Slide siguiente
+  if (btn?.dataset?.accion === "siguiente-slide") {
+    carousel("adelante");
+  }
+
+  // - Carousel Slide anterior
+  if (btn?.dataset?.accion === "anterior-slide") {
+    carousel("atras");
   }
 });

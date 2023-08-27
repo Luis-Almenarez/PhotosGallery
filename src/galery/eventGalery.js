@@ -1,6 +1,7 @@
 import closeGalery from "./closeGalery";
 import slideClick from "./slideClick";
 import { cargarAnteriorSiguiente } from "./chargeImage";
+import carousel from "./carousel";
 
 const galery = document.getElementById("galeria");
 galery.addEventListener("click", (e) => {
@@ -26,5 +27,15 @@ galery.addEventListener("click", (e) => {
   // - Imange anterior
   if (btn?.dataset?.accion === "anterior-imagen") {
     cargarAnteriorSiguiente("anterior");
+  }
+
+  // - Carousel Slide siguiente
+  if (btn?.dataset?.accion === "siguiente-slide") {
+    carousel("adelante");
+  }
+
+  // - Carousel Slide anterior
+  if (btn?.dataset?.accion === "anterior-slide") {
+    carousel("atras");
   }
 });
