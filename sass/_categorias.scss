@@ -1,66 +1,74 @@
-@use 'variables';
+@use "variables";
+@use "mixins" as mx;
 
 .categorias {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 20px;
-	position: relative;
-	top: -150px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  position: relative;
+  top: -150px;
+
+  @include mx.tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mx.phone {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .categoria {
-	min-height: 320px;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	align-items: center;
-	text-align: center;
-	position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  position: relative;
 
-	&::after {
-		content: '';
-		display: block;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 1) 100%);
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 0;
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 1) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
 
-		transition: 0.3s ease-out all;
-		opacity: 1;
-	}
+    transition: 0.3s ease-out all;
+    opacity: 1;
+  }
 
-	&:hover {
-		&::after {
-			opacity: 0.5;
-		}
-	}
+  &:hover {
+    &::after {
+      opacity: 0.5;
+    }
+  }
 
-	&__img {
-		width: 100%;
-		vertical-align: top;
-		position: relative;
-	}
+  &__img {
+    width: 100%;
+    vertical-align: top;
+    position: relative;
+  }
 
-	&__datos {
-		position: absolute;
-		bottom: 0;
-		width: 100%;
-		z-index: 1;
-	}
+  &__datos {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+  }
 
-	&__nombre {
-		font-family: variables.$secondary-font-family;
-		font-size: 34px;
-		margin-bottom: 5px;
-		text-shadow: variables.$text-shadow;
-	}
+  &__nombre {
+    font-family: variables.$secondary-font-family;
+    font-size: 34px;
+    margin-bottom: 5px;
+    text-shadow: variables.$text-shadow;
+  }
 
-	&__numero-fotos {
-		font-size: 16px;
-		margin-bottom: 20px;
-		text-shadow: variables.$text-shadow;
-	}
+  &__numero-fotos {
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-shadow: variables.$text-shadow;
+  }
 }

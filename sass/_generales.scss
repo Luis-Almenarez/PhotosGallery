@@ -1,9 +1,17 @@
 @use "variables";
 
-* {
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+*,
+*:before,
+*:after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: inherit;
 }
 
 body {
@@ -15,7 +23,7 @@ body {
 
 .contenedor {
   width: 90%;
-  max-width: 1050px;
+  max-width: 105rem;
   margin: auto;
 }
 
