@@ -24,7 +24,14 @@ Esta es una galería de imágenes realizada con HTML, SCSS y en un gran mayoror�
 
 Puedes ver una vista previa en vivo de la landing page [aquí](https://galleryphotoss.netlify.app/).
 
+
 ![Captura de pantalla 2023-08-22 a las 00 03 06](https://github.com/Luis-Almenarez/PhotosGallery/assets/125621759/a4e87e02-e6b6-4e98-b85e-1cec4351a835)
+<hr>
+
+![Captura de pantalla 2023-08-28 a las 03 37 59](https://github.com/Luis-Almenarez/PhotosGallery/assets/125621759/a118580b-617d-4aac-a41c-f61b147fd84f)
+![Captura de pantalla 2023-08-28 a las 03 43 54](https://github.com/Luis-Almenarez/PhotosGallery/assets/125621759/6078893e-eaf1-4262-881f-d0564dd81f97)
+
+
 
 
 <hr>
